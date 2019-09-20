@@ -10,7 +10,7 @@ class GerenciadorPaginas:
 
     def __init__(self):
         self._listaPaginas = []
-        self._tamanhoTotalListaPaginas = 10
+        self._maxPaginasLista = 10
 
     def inserirPagina( self, pagina, posicao = -1 ):
         if( posicao == -1 ):
@@ -38,12 +38,22 @@ class GerenciadorPaginas:
 
         return espacoMemoriaLiberada
 
+    def exibirListaPaginas(self):
+        grade = 90 * '_'
+        print(grade)
+        print("{}|{}|{}".format( "ID".center(10), "MOMENTO CRIAÇÃO".center(40), "BIT_R".center(20) ) )
+        print(grade)
+        for index, pagina in enumerate(self._listaPaginas):
+            print("{}|{}|{}".format(str( index + 1 ).ljust(10),
+                                       str( pagina.momentoCriacao ).ljust(40),
+                                       str( pagina.bitR ).ljust(20)) )
 
+        print(grade)
 
     @property
     def listaPaginas(self):
         return self._listaPaginas
 
     @property
-    def tamanhoTotalListaPaginas(self):
-        return self._tamanhoTotalListaPaginas
+    def maxPaginasLista(self):
+        return self._maxPaginasLista

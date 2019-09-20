@@ -1,36 +1,43 @@
+import os
+
 from gerenciadorPaginas import GerenciadorPaginas
+from impressao import Impressao
 from pagina import Pagina
+
 
 if __name__ == '__main__':
     gerenciadorPaginas = GerenciadorPaginas()
 
     while( True ):
 
-        p1 = Pagina()
-        quantidadeAtualLista = len( gerenciadorPaginas.listaPaginas )
-        tamanhoLista = gerenciadorPaginas.tamanhoTotalListaPaginas
-        if( quantidadeAtualLista < tamanhoLista ):
-            gerenciadorPaginas.inserirPagina( p1 )
-            print("pagina inserida na posição {}".format(quantidadeAtualLista))
+        opcao = Impressao.menu()
 
-        else:
-            indicePaginaMaisAntiga = gerenciadorPaginas.buscaIndicePaginaTempoMaisAntigo()
+        if( opcao == 1 ):
 
-            if( gerenciadorPaginas.bitRLivre( indicePaginaMaisAntiga ) ):
-                #gerenciadorPaginas.inserirPaginaPosicao( p1, indicePaginaMaisAntiga )
-                gerenciadorPaginas.inserirPagina(p1, indicePaginaMaisAntiga)
-                print("indice página mais antiga {}".format(indicePaginaMaisAntiga))
+            quantidadePaginasNaLista = len( gerenciadorPaginas.listaPaginas )
+            maxPaginasLista = gerenciadorPaginas.maxPaginasLista
+
+            pagina = Pagina()
+            if ( quantidadePaginasNaLista < maxPaginasLista ):
+                gerenciadorPaginas.inserirPagina( pagina )
+                print( "A página foi inserida na posição {}\n".format(quantidadePaginasNaLista) )
 
             else:
-                print("indice {} não está liberado".format(indicePaginaMaisAntiga))
+                indicePaginaMaisAntiga = gerenciadorPaginas.buscaIndicePaginaTempoMaisAntigo()
 
-    '''
-    p2 = Pagina()
-    gerenciadorPaginas.inserirPagina(p2)
-    print("bitR da página {}: {}".format(p2,p2.bitR))
+                if ( gerenciadorPaginas.bitRLivre(indicePaginaMaisAntiga) ):
+                    gerenciadorPaginas.inserirPagina( pagina, indicePaginaMaisAntiga )
+                    print( "A posição {} da lista foi substituida\n".format(indicePaginaMaisAntiga) )
 
-    p3 = Pagina()
-    gerenciadorPaginas.inserirPagina(p3)
-    print("bitR da página {}: {}".format(p3,p3.bitR))
-    
-    '''
+                else:
+                    print( "A posição {} da lista não está liberado\n".format(indicePaginaMaisAntiga) )
+
+        elif( opcao == 2 ):
+            gerenciadorPaginas.exibirListaPaginas()
+
+        elif( opcao == 3 ):
+            pid = os.getpid()
+            os.kill( pid, 9 )
+
+        else:
+            print( "A opcao {} é inválida".format(opcao) )
