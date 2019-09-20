@@ -6,7 +6,6 @@ if __name__ == '__main__':
 
     while( True ):
 
-
         p1 = Pagina()
         quantidadeAtualLista = len( gerenciadorPaginas.listaPaginas )
         tamanhoLista = gerenciadorPaginas.tamanhoTotalListaPaginas
@@ -15,7 +14,7 @@ if __name__ == '__main__':
             print("pagina inserida na posição {}".format(quantidadeAtualLista))
 
         else:
-            indicePaginaMaisAntiga = gerenciadorPaginas.buscaPaginaTempoMaisAntigo()
+            indicePaginaMaisAntiga = gerenciadorPaginas.buscaIndicePaginaTempoMaisAntigo()
 
             if( gerenciadorPaginas.bitRLivre( indicePaginaMaisAntiga ) ):
                 #gerenciadorPaginas.inserirPaginaPosicao( p1, indicePaginaMaisAntiga )

@@ -10,29 +10,7 @@ class GerenciadorPaginas:
 
     def __init__(self):
         self._listaPaginas = []
-        self._tamanhoTotalListaPaginas = 3
-    '''
-    def inserirPagina( self, pagina ):
-        #pagina = Pagina()
-        tamanhoLista = len( self._listaPaginas )
-        inserido = False
-        if( tamanhoLista < self._tamanhoTotalListaPaginas ):
-            self._listaPaginas.append( pagina )
-
-        else:
-            indicePaginaMaisAntiga = self.buscaPaginaTempoMaisAntigo( self._listaPaginas )
-
-            if( self.listaPaginas[indicePaginaMaisAntiga].bitR == 0 ):
-                self.listaPaginas[indicePaginaMaisAntiga] = pagina
-                self.listaPaginas[indicePaginaMaisAntiga].bitR = 1
-                self.listaPaginas[indicePaginaMaisAntiga].tempoReferenciaTime()
-                inserido = True
-
-            else:
-                self.listaPaginas[indicePaginaMaisAntiga].bitR = 0
-
-        return inserido
-        '''
+        self._tamanhoTotalListaPaginas = 10
 
     def inserirPagina( self, pagina, posicao = -1 ):
         if( posicao == -1 ):
@@ -40,29 +18,17 @@ class GerenciadorPaginas:
         else:
             self.listaPaginas[posicao] = pagina
 
-    def inserirPaginaPosicao( self, pagina, posicao ):
-        self.listaPaginas[posicao] = pagina
+    def buscaIndicePaginaTempoMaisAntigo( self ):
+        menorTempoCriacao = self._listaPaginas[0].momentoCriacao
+        indiceMenorTempoCriacao = 0
+        for index, pagina in enumerate(self._listaPaginas):
+            tempoCriacaoAtual = pagina.momentoCriacao
+            if tempoCriacaoAtual < menorTempoCriacao:
+                menorTempoCriacao = tempoCriacaoAtual
+                indiceMenorTempoCriacao = index
 
-    def buscaPaginaTempoMaisAntigo( self ):
-        tamanhoLista = len( self._listaPaginas )
-        indiceMaisAntigo = 0
+        return indiceMenorTempoCriacao
 
-        for i in range( 0, tamanhoLista - 1 ):
-            flagIndiceAntigoAlterada = False
-            paginaAtual = self._listaPaginas[i]
-            momentoCriacaoPaginaAtual = paginaAtual.momentoCriacao
-            for j in range( i + 1, tamanhoLista ):
-                proximaPagina = self._listaPaginas[j]
-                momentoCriacaoProximaPagina = proximaPagina.momentoCriacao
-                if( momentoCriacaoProximaPagina <  momentoCriacaoPaginaAtual ):
-                    indiceMaisAntigo = j
-                    i = indiceMaisAntigo
-                    flagIndiceAntigoAlterada = True
-                    break
-            if( not flagIndiceAntigoAlterada ):
-                break
-
-        return indiceMaisAntigo
 
     def bitRLivre( self, indicePagina ):
         bitR = self._listaPaginas[indicePagina].bitR
